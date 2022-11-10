@@ -5,13 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Patentes</title>
 </head>
-
 <body>
-    <div class="container-buttons">
+    <div class="container-fluid">
         <form id="formulario">
-            <input id="add-patente" type="text" placeholder="Ingrese la patente. Por ejemplo: AAA111" class="add-patente" onclick=application.addPatente()></input>
+            <div class="container-text">
+            <input id="add-patente" type="text" placeholder="Ingrese la patente. Por ejemplo: AAA111" class="add-patente"></input>
+            </div>
+            <div class="container-buttons">
             <button type="submit">Agregar patente</button>
             <!-- Agregar patentes con formato AAA111 (3 letras + 3 números) y no debe estar repetida, mostrar un error en caso de que sea una patente repetida o no válida  -->
             <button type="submit">Editar patente</button>
@@ -19,19 +22,15 @@
             <button type="submit">Eliminar patente</button>
              <!-- Buscar y Editar patente, mostrar un error en caso de que no exista la patente  -->
         </form>
-        <button type="button">Mostrar listado</button>
-        <button type="button">Salir</button>
+        <button id="get-patentes">Mostrar listado</button>
+        <button id="close-window">Salir</button>
     </div>
     <div class="container-table">
         <h2>Listado de patentes</h2>
-        <table>
-            <tr>
-                <td>Patente</td>            
-            </tr>
-            <tbody id="patentes">
-            </tbody>
+        <table id="table-patentes">
         </table>
     </div>
+    </div> 
      <script type="text/javascript" src='app.js'></script>
 </body>
 
