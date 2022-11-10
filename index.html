@@ -11,23 +11,22 @@
 <body>
     <div class="container-buttons">
         <form id="formulario">
-            <input id="add-patente" type="text" placeholder="Ingrese la patente" class="add-patente" onclick=application.addPatente()></input>
+            <input id="add-patente" type="text" placeholder="Ingrese la patente. Por ejemplo: AAA111" class="add-patente" onclick=application.addPatente()></input>
             <button type="submit">Agregar patente</button>
-             <!-- <td>Editar</td> button--> 
+            <!-- Agregar patentes con formato AAA111 (3 letras + 3 números) y no debe estar repetida, mostrar un error en caso de que sea una patente repetida o no válida  -->
+            <button type="submit">Editar patente</button>
             <!-- Buscar y Editar patente, mostrar un error en caso de que no exista la patente  -->
-            <!-- <td>Eliminar</td> button-->
+            <button type="submit">Eliminar patente</button>
              <!-- Buscar y Editar patente, mostrar un error en caso de que no exista la patente  -->
         </form>
         <button type="button">Mostrar listado</button>
         <button type="button">Salir</button>
-
     </div>
     <div class="container-table">
         <h2>Listado de patentes</h2>
         <table>
             <tr>
-                <td>Patente</td>
-               
+                <td>Patente</td>            
             </tr>
             <tbody id="patentes">
             </tbody>
