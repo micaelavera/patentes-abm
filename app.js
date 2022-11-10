@@ -19,8 +19,7 @@ const createTable = () => {
 }
 
 const altaPatente = (patente) => {
-   
-    if (!estaVacia(patente) && esValida(patente)) {
+    if (!estaVacia(patente) && esValida(patente) { //&& !esPatenteRepetida(patente)) 
         let item = { patente: patente };
         arrayPatentes.push(item);
 
@@ -31,18 +30,30 @@ const altaPatente = (patente) => {
     }
 }
 
-const esRepetida = (patente) => {
-    arrayPatentes = JSON.parse(localStorage.getItem('patentes'))
-    for (const i = 0; i < arrayPatentes.length; i++) {
-        console.log(arrayPatentes[i].patente)
-        //        #if (arrayPatentes[i].patente == patente){
-        //             alert("La patente ya se encuentra en la base de datos.")
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-    }
-}
+// const existePatenteRepetida = (patente) => {
+//     if (arrayPatentes !== null){
+//         arrayPatentes = JSON.parse(localStorage.getItem('patentes'))
+//         console.log(arrayPatentes)
+//     // if (arrayPatentes.length !== 0) {
+//         for (let i = 0; i < arrayPatentes.length; i++) {
+//             console.log(arrayPatentes[i].patente)
+//             if (arrayPatentes[i].patente === patente) {
+//                 return true;
+//             }
+//             return false;
+//     }}
+//     return false;
+// }
+
+
+// const esPatenteRepetida = (patente) => {
+//     if (existePatenteRepetida(patente)) {
+//         alert("La patente está en la base de datos. Verifique el listado.")
+//         return true;
+//     }
+//     return false;
+
+// }
 const regex = (patente) => {
     // validación con expresión regular
     const re = new RegExp('[A-Z]{3}[0-9]{3}$');
@@ -50,10 +61,10 @@ const regex = (patente) => {
 }
 
 const esValida = (patente) => {
-    if(regex(patente)){
+    if (regex(patente)) {
         return true;
     }
-    alert("El formato de la patente no es válida. Intente nuevamente.")  
+    alert("El formato de la patente no es válida. Intente nuevamente.")
     return false;
 }
 
@@ -77,7 +88,7 @@ formulario.addEventListener('submit', (e) => {
     altaPatente(input);
 
     formulario.reset();
-})
+});
 
 document.getElementById('get-patentes').addEventListener("click", (e) => {
     e.preventDefault();
