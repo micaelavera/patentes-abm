@@ -1,17 +1,17 @@
 const formulario = document.getElementById('formulario')
 const datatable = document.getElementById('table-patentes');
 
-let arrayPatentes = []
+const arrayPatentes = []
 
 const createTable = () => {
-    arrayPatentes = JSON.parse(localStorage.getItem('patentes'))
-    if (arrayPatentes === null) {
+    let storage = JSON.parse(localStorage.getItem('patentes'))
+    if (localStorage.getItem("patentes") === null) {
         datatable.innerHTML = `<p> No hay patentes en la base de datos.</p>`
     }
     else {
         datatable.innerHTML = "<tr><th>Patente</th></tr>"
-        for (let i = 0; i < arrayPatentes.length; i++) {
-            let fila = "<tr><td>" + arrayPatentes[i].patente + "</tr></td>";
+        for (let i = 0; i < storage.length; i++) {
+            let fila = "<tr><td>" + storage[i].patente + "</tr></td>";
             datatable.innerHTML += fila;
         }
         return datatable;
@@ -19,41 +19,40 @@ const createTable = () => {
 }
 
 const altaPatente = (patente) => {
-    if (!estaVacia(patente) && esValida(patente) { //&& !esPatenteRepetida(patente)) 
-        let item = { patente: patente };
-        arrayPatentes.push(item);
+    const formData = { patente };
+    arrayPatentes.push(formData);
+    if (localStorage.getItem("patentes") === null) {
+        localStorage.setItem("patentes", JSON.stringify(arrayPatentes))
+    } else {
+        const storage = JSON.parse(localStorage.getItem("patentes"))
+        if (!estaVacia(patente) && esValida(patente) && !esPatenteRepetida(patente)) {
+            storage.push(formData);
+            localStorage.setItem("patentes", JSON.stringify(storage))
+        }
 
-        // guardo en el local storage
-        saveDB();
-
-        return item;
     }
 }
 
-// const existePatenteRepetida = (patente) => {
-//     if (arrayPatentes !== null){
-//         arrayPatentes = JSON.parse(localStorage.getItem('patentes'))
-//         console.log(arrayPatentes)
-//     // if (arrayPatentes.length !== 0) {
-//         for (let i = 0; i < arrayPatentes.length; i++) {
-//             console.log(arrayPatentes[i].patente)
-//             if (arrayPatentes[i].patente === patente) {
-//                 return true;
-//             }
-//             return false;
-//     }}
-//     return false;
-// }
+const existePatenteRepetida = (patente) => {
+    let storage = JSON.parse(localStorage.getItem("patentes"))
+    for (const i = 0; i < storage.length; i++) {    
+        if (storage[i].patente === patente) {
+            return true;
+        }
+        return false;
+    }
+    return false;
+}
 
 
-// const esPatenteRepetida = (patente) => {
-//     if (existePatenteRepetida(patente)) {
-//         alert("La patente está en la base de datos. Verifique el listado.")
-//         return true;
-//     }
-//     return false;
+const esPatenteRepetida = (patente) => {
+    if (existePatenteRepetida(patente)) {
+        alert("La patente está en la base de datos. Verifique el listado.")
+        return true;
+    }
+    return false;
 
-// }
+}
 const regex = (patente) => {
     // validación con expresión regular
     const re = new RegExp('[A-Z]{3}[0-9]{3}$');
@@ -65,12 +64,14 @@ const esValida = (patente) => {
         return true;
     }
     alert("El formato de la patente no es válida. Intente nuevamente.")
+    document.querySelector("#add-patente").focus();
     return false;
 }
 
 const estaVacia = (patente) => {
     if (patente === '' || patente === null) {
         alert("El campo está vacío, debe ingresar una patente válida.")
+        document.querySelector("#add-patente").focus();
         return true;
     }
     return false;
@@ -97,5 +98,8 @@ document.getElementById('get-patentes').addEventListener("click", (e) => {
 
 document.getElementById('close-window').addEventListener("click", (e) => {
     e.preventDefault();
-    window.close();
+    let confirm = window.confirm("¿Estás seguro que quieres salir?")
+    if (confirm) {
+        window.close();
+    }
 });
