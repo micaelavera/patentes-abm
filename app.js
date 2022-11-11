@@ -5,7 +5,7 @@ const arrayPatentes = []
 
 const createTable = () => {
     let storage = JSON.parse(localStorage.getItem('patentes'))
-    if (localStorage.getItem("patentes") === null) {
+    if (localStorage.getItem("patentes") === null || storage.length === 0) {
         datatable.innerHTML = `<p> No hay patentes en la base de datos.</p>`
     } else {
         datatable.innerHTML = "<tr><th>Patente</th></tr>"
