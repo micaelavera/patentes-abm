@@ -88,7 +88,8 @@ const esPatenteRepetida = (patente) => {
 }
 
 const regex = (patente) => {
-    const re = new RegExp('[A-Z]{3}[0-9]{3}$');
+    const re = new RegExp('^[A-Z]{3}[0-9]{3}$');
+    console.log(re.test(patente))
     return re.test(patente);
 }
 
