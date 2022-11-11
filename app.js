@@ -7,8 +7,7 @@ const createTable = () => {
     let storage = JSON.parse(localStorage.getItem('patentes'))
     if (localStorage.getItem("patentes") === null) {
         datatable.innerHTML = `<p> No hay patentes en la base de datos.</p>`
-    }
-    else {
+    } else {
         datatable.innerHTML = "<tr><th>Patente</th></tr>"
         for (let i = 0; i < storage.length; i++) {
             let fila = "<tr><td>" + storage[i].patente + "</tr></td>";
@@ -44,7 +43,7 @@ const editarPatente = (patente) => {
             document.querySelector("#text-patente").focus();
         } else {
             var update = window.prompt("Ingrese la nueva patente:", patente);
-            if (!estaVacia(update) && esValida(update)&& !esPatenteRepetida(update)) {
+            if (!estaVacia(update) && esValida(update) && !esPatenteRepetida(update)) {
                 storage[resultado].patente = update;
                 localStorage.setItem("patentes", JSON.stringify(storage))
             }
@@ -63,10 +62,9 @@ const bajaPatente = (patente) => {
             alert("No existe la patente ingresada")
             document.querySelector("#text-patente").focus();
         } else {
-                storage.splice(resultado,1)         
-                localStorage.setItem("patentes", JSON.stringify(storage))
-            }
-        
+            storage.splice(resultado, 1)
+            localStorage.setItem("patentes", JSON.stringify(storage))
+        }
     }
 }
 
