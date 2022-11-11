@@ -35,7 +35,7 @@ const altaPatente = (patente) => {
 
 const existePatenteRepetida = (patente) => {
     let storage = JSON.parse(localStorage.getItem("patentes"))
-    for (const i = 0; i < storage.length; i++) {    
+    for (const i = 0; i < storage.length; i++) {
         if (storage[i].patente === patente) {
             return true;
         }
@@ -64,31 +64,63 @@ const esValida = (patente) => {
         return true;
     }
     alert("El formato de la patente no es válida. Intente nuevamente.")
-    document.querySelector("#add-patente").focus();
+    document.querySelector("#text-patente").focus();
     return false;
 }
 
 const estaVacia = (patente) => {
     if (patente === '' || patente === null) {
         alert("El campo está vacío, debe ingresar una patente válida.")
-        document.querySelector("#add-patente").focus();
+        document.querySelector("#text-patente").focus();
         return true;
     }
     return false;
 }
 
-const saveDB = () => {
-    localStorage.setItem('patentes', JSON.stringify(arrayPatentes))
+
+const editarPatente = (patente) => {
+    let storage = JSON.parse(localStorage.getItem("patentes"));
+    if (!estaVacia(patente) && esValida(patente)) {
+        let resultado = storage.findIndex(elem => {
+            return elem.patente === patente
+        });
+
+        if (resultado === -1) {
+            alert("No existe la patente ingresada")
+            document.querySelector("#text-patente").focus();
+        } else {
+            var update = window.prompt("Ingrese la nueva patente", patente);
+            if (!estaVacia(update) && esValida(update)) {
+                storage[resultado].patente = update;
+                localStorage.setItem("patentes", JSON.stringify(storage))
+            }
+        }
+    }
 }
+// const saveDB = () => {
+//     localStorage.setItem('patentes', JSON.stringify(arrayPatentes))
+// }
+
+
 
 //Events listener 
 formulario.addEventListener('submit', (e) => {
     e.preventDefault();
-    const input = document.getElementById('add-patente').value;
+    const input = document.getElementById('text-patente').value;
 
     altaPatente(input);
 
     formulario.reset();
+});
+
+document.getElementById('update-button').addEventListener('click', (e) => {
+    e.preventDefault();
+    const input = document.getElementById('text-patente').value;
+
+    editarPatente(input);
+
+    formulario.reset();
+
 });
 
 document.getElementById('get-patentes').addEventListener("click", (e) => {
