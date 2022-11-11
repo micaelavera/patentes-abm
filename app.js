@@ -35,14 +35,14 @@ const altaPatente = (patente) => {
 }
 
 const existePatenteRepetida = (patente) => {
+    let esRepetida = false;
     let storage = JSON.parse(localStorage.getItem("patentes"))
-    for (const i = 0; i < storage.length; i++) {
+    for (let i = 0; i < storage.length; i++) {
         if (storage[i].patente === patente) {
-            return true;
+            esRepetida = true;
         }
-        return false;
     }
-    return false;
+    return esRepetida;
 }
 
 
@@ -54,8 +54,8 @@ const esPatenteRepetida = (patente) => {
     return false;
 
 }
+
 const regex = (patente) => {
-    // validación con expresión regular
     const re = new RegExp('[A-Z]{3}[0-9]{3}$');
     return re.test(patente);
 }
@@ -87,17 +87,18 @@ const editarPatente = (patente) => {
         });
 
         if (resultado === -1) {
-            alert("No existe la patente ingresada")
+            alert("No existe la patente ingresada.")
             document.querySelector("#text-patente").focus();
         } else {
-            var update = window.prompt("Ingrese la nueva patente", patente);
-            if (!estaVacia(update) && esValida(update)) {
+            var update = window.prompt("Ingrese la nueva patente:", patente);
+            if (!estaVacia(update) && esValida(update)&& !esPatenteRepetida(update)) {
                 storage[resultado].patente = update;
                 localStorage.setItem("patentes", JSON.stringify(storage))
             }
         }
     }
 }
+
 const bajaPatente = (patente) => {
     let storage = JSON.parse(localStorage.getItem("patentes"));
     if (!estaVacia(patente) && esValida(patente)) {
@@ -117,7 +118,7 @@ const bajaPatente = (patente) => {
 }
 
 //Events listener 
-formulario.addEventListener('submit', (e) => {
+document.getElementById('add-button').addEventListener('click', (e) => {
     e.preventDefault();
     const input = document.getElementById('text-patente').value;
 
