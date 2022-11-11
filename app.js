@@ -59,7 +59,7 @@ const bajaPatente = (patente) => {
         });
 
         if (resultado === -1) {
-            alert("No existe la patente ingresada")
+            alert("No existe la patente ingresada. Intente nuevamente.")
             document.querySelector("#text-patente").focus();
         } else {
             storage.splice(resultado, 1)
