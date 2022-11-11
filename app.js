@@ -70,7 +70,8 @@ const esValida = (patente) => {
 }
 
 const estaVacia = (patente) => {
-    if (patente === '' || patente === null) {
+    console.log(patente.length)
+    if (patente === '' || patente === null || patente.lenght === 0) {
         alert("El campo de texto está vacío, debe ingresar una patente válida.")
         document.querySelector("#text-patente").focus();
         return true;
