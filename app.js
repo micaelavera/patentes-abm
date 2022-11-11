@@ -28,6 +28,7 @@ const altaPatente = (patente) => {
         if (!estaVacia(patente) && esValida(patente) && !esPatenteRepetida(patente)) {
             storage.push(formData);
             localStorage.setItem("patentes", JSON.stringify(storage))
+
         }
 
     }
@@ -97,11 +98,23 @@ const editarPatente = (patente) => {
         }
     }
 }
-// const saveDB = () => {
-//     localStorage.setItem('patentes', JSON.stringify(arrayPatentes))
-// }
+const bajaPatente = (patente) => {
+    let storage = JSON.parse(localStorage.getItem("patentes"));
+    if (!estaVacia(patente) && esValida(patente)) {
+        let resultado = storage.findIndex(elem => {
+            return elem.patente === patente
+        });
 
-
+        if (resultado === -1) {
+            alert("No existe la patente ingresada")
+            document.querySelector("#text-patente").focus();
+        } else {
+                storage.splice(resultado,1)         
+                localStorage.setItem("patentes", JSON.stringify(storage))
+            }
+        
+    }
+}
 
 //Events listener 
 formulario.addEventListener('submit', (e) => {
@@ -118,6 +131,16 @@ document.getElementById('update-button').addEventListener('click', (e) => {
     const input = document.getElementById('text-patente').value;
 
     editarPatente(input);
+
+    formulario.reset();
+
+});
+
+document.getElementById('delete-button').addEventListener('click', (e) => {
+    e.preventDefault();
+    const input = document.getElementById('text-patente').value;
+
+    bajaPatente(input);
 
     formulario.reset();
 
