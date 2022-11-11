@@ -91,7 +91,7 @@ const editarPatente = (patente) => {
             document.querySelector("#text-patente").focus();
         } else {
             var update = window.prompt("Ingrese la nueva patente:", patente);
-            if (!estaVacia(update) && esValida(update)) {
+            if (!estaVacia(update) && esValida(update)&& !esPatenteRepetida(update)) {
                 storage[resultado].patente = update;
                 localStorage.setItem("patentes", JSON.stringify(storage))
             }
